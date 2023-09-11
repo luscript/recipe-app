@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Climate+Crisis&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo&display=swap');
+
+.foodImage {
+    width: 100%;
+    height: 15rem;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.detailedFoodImage {
+    height: 20rem;
+    width: 85%;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.foodName {
+    font-family: 'Climate Crisis', cursive;
+    font-size: 3rem;
+    color: #fff;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+p {
+    font-family: 'Martian Mono', monospace;
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.detailsBox {
+    padding: 0 1rem;
+/* From https://css.glass */
+background: rgba(255, 255, 255, 0.08);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(2.4px);
+-webkit-backdrop-filter: blur(2.4px);
+}
+
+.boxTitle {
+    color: rgba(0, 0, 0, 0.866);
+    margin-bottom: 0.75rem;
+}

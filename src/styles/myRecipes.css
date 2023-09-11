@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Climate+Crisis&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo&display=swap');
+
+
+.title {
+    font-family: 'Climate Crisis', cursive;
+    font-size: 3rem;
+    color: #fff;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+h1, span {
+    font-family: 'Archivo', sans-serif;
+}
+
+h2 {
+    font-family: 'Climate Crisis', cursive;
+    color: #fff;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.foodImage:hover {
+    cursor: pointer;
+    opacity: 0.6;
+    transition: .2s ease-in-out;  
+    -webkit-transform: scale(1.05);
+	transform: scale(1.05);  
+}
+
+.foodImage {
+    opacity: 1;
+    transition: .2s ease-in-out;
+    -webkit-transform: scale(1);
+	transform: scale(1);
+	-webkit-transition: .2s ease-in-out;
+}

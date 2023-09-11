@@ -1,5 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Climate+Crisis&display=swap');
 
+title {
+	font-family: 'Climate Crisis', cursive;
+	font-size: 2rem;
+}
 
 a {
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+.homeTitle {
+    font-family: 'Climate Crisis', cursive;
+    animation: float 3s ease-in-out infinite;
+}
+
+.shapeImg {
+    background-image: url('../assets/squigly-linebnw.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+
+@keyframes float {
+	0% {
+		transform: translatey(0px);
+	}
+	50% {
+		transform: translatey(-20px);
+	}
+	100% {
+		transform: translatey(0px);
+	}
 }

@@ -6,7 +6,7 @@ const recipes = [
         procedure: "Put salt on salmon, put salmon in oven, put lemon on salmon, put salmon in oven again, put pepper on salmon, put salmon in oven again, take salmon out of oven, eat salmon.",
         cookingTime: "1 hour",
         servings: 4,
-        image: "https://www.simplyrecipes.com/wp-content/uploads/2018/06/HT-Grilled-Salmon-LEAD-VERTICAL.jpg"
+        image: "https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2021/01/Baked-Salmon-8.jpg"
     },
     {
         id: 2,
