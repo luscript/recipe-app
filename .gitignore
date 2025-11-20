@@ -22,3 +22,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Backend artifacts: ignore H2 data, uploaded images and build outputs
+# ignore nested data/uploads (some files are under backend/backend/...)
+backend/**/data/
+backend/**/uploads/
+backend/target/
+backend/**/*.mv.db
+backend/**/*.trace.db
