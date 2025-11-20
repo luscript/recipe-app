@@ -44,7 +44,7 @@ const DropdownComponent = ({logout, userEmail}: {logout: () => void, userEmail: 
             </li>
           <li>
             <img src={user} alt="" />
-            <a href="#">My profile</a>
+            <Link to="/profile">My profile</Link>
           </li>
           <li>
             <img src={fork} alt="" />
@@ -56,7 +56,7 @@ const DropdownComponent = ({logout, userEmail}: {logout: () => void, userEmail: 
           </li>
           <li>
             <img src={logoutimg} alt="" />
-            <a href="#" onClick={() => logout()}>Logout</a>
+            <button className="link-button" onClick={() => logout()}>Logout</button>
           </li>
         </ul>
       </div>
