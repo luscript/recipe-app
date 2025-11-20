@@ -24,6 +24,7 @@ export default function RecipeForm({ recipeA }: { recipeA?: RecipeFormType }) {
   });
 
   const [image, setImage] = React.useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = React.useState<string | null>(null);
 
   const navigate = useNavigate();
 
@@ -32,6 +33,9 @@ export default function RecipeForm({ recipeA }: { recipeA?: RecipeFormType }) {
       setRecipe({
         ...recipeA
       });
+      // set preview to existing image if present
+      const img = (recipeA as any).image?.secure_url || (recipeA as any).imagePath ? `http://localhost:3001/uploads/${(recipeA as any).imagePath}` : null;
+      setPreviewUrl(img);
     } else {
       setRecipe({
         ...recipe
@@ -55,11 +59,14 @@ export default function RecipeForm({ recipeA }: { recipeA?: RecipeFormType }) {
   const onImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const imageFile = event.target.files && event.target.files[0];
     setImage(imageFile);
+    if (imageFile) {
+      setPreviewUrl(URL.createObjectURL(imageFile));
+    }
   }
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => { 
     event.preventDefault();
-    if(image === null) { 
+    if(!recipeA && image === null) { 
       Swal.fire({
         icon: "error",
         title: "Please upload an image",
@@ -67,9 +74,10 @@ export default function RecipeForm({ recipeA }: { recipeA?: RecipeFormType }) {
       return;
     }
     if(recipeA) {
-      updateRecipe(recipe, image!).finally(() => navigate("/recipes"));
+      // when editing, image may be null -> backend will keep existing image
+      updateRecipe(recipe, image).finally(() => navigate("/recipes"));
     } else {
-      postRecipes(recipe, image!).finally(() => {
+      postRecipes(recipe, image).finally(() => {
         const clearedRecipe = {
           name: "",
           ingredients: [
@@ -114,6 +122,12 @@ export default function RecipeForm({ recipeA }: { recipeA?: RecipeFormType }) {
       <div className="mt-2 mb-6">
         <p className="mb-2">Image</p>
         <input type="file" accept="image/*" id="imageUploader" onChange={(event) => onImageChange(event)}/>
+        {previewUrl && (
+          <div className="mt-2">
+            <p className="mb-1">Preview:</p>
+            <img src={previewUrl} alt="preview" style={{maxWidth: 200, maxHeight: 200}} />
+          </div>
+        )}
       </div>
       <RecipeFormInput 
         inputType="number"

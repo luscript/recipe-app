@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { RecipeType } from '../domain/RecipeType'
+import placeholder from '../assets/tenedor.png'
 
 const RecipeCard = ({ recipe }: { recipe: RecipeType }) => {
 
@@ -16,7 +17,12 @@ const RecipeCard = ({ recipe }: { recipe: RecipeType }) => {
       </h1>
 
       <img
-          src={recipe.image.secure_url}
+          src={
+            // safe access in case backend/front shapes differ
+            (recipe as any).image?.secure_url ||
+            // fallback to imagePath served by backend (if available)
+            ((recipe as any).imagePath ? `http://localhost:3001/uploads/${(recipe as any).imagePath}` : placeholder)
+          }
           alt="foodimage"
           className="foodImage"
           onClick={handleClick}

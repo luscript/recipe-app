@@ -2,6 +2,7 @@ import React, {createContext, JSX, useContext, useState} from 'react';
 import {UserType} from "../domain/UserType.ts";
 import {UserContextType} from "../domain/UserContextType.ts";
 import { getUser } from "../services/userService.tsx";
+import { AxiosResponse } from 'axios';
 
 const UserContext = createContext({} as UserContextType);
 export const useUserContext = () => useContext(UserContext);
@@ -16,6 +17,9 @@ export const UserContextProvider = ({children}: { children: JSX.Element }) => {
                 const res = (response as AxiosResponse);
                 res.data ? setUser({token, email: res.data.email}) : setUser(null);
             }).finally(() => setLoading(false))
+        } else {
+            // No token: stop loading so UI can render (login links, etc.)
+            setLoading(false);
         }
     }, []);
     const contextLogout = () => {
@@ -25,10 +29,17 @@ export const UserContextProvider = ({children}: { children: JSX.Element }) => {
     const contextLogin = () => {
         const token = localStorage.getItem('token');
         if (token) {
-            getUser(token).then((response) => {
-                const res = (response as AxiosResponse);
-                res.data ? setUser({token, email: res.data.email}) : setUser(null);
-            })
+            setLoading(true);
+            getUser(token)
+                .then((response) => {
+                    const res = (response as AxiosResponse);
+                    res.data ? setUser({token, email: res.data.email}) : setUser(null);
+                })
+                .catch(() => setUser(null))
+                .finally(() => setLoading(false));
+        } else {
+            setUser(null);
+            setLoading(false);
         }
     };
 

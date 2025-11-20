@@ -8,12 +8,11 @@ const BASE_URL = "http://localhost:3001/recipes";
 export const postRecipes =  async (recipe: any, image: File | null): Promise<void> => {
   try {
     const formData = new FormData();
-    formData.append("image", image!); // Add the image file
+    if (image) formData.append("image", image); // Add the image file
     formData.append("data", JSON.stringify(recipe));
     const headers = getToken();
     const response = await axios.post(`${BASE_URL}`, formData, {
       headers: {
-        'Content-Type': 'multipart/form-data',
         'Authorization': headers.Authorization
       },
     })
@@ -51,7 +50,7 @@ export const getRecipe = async (recipeID: string) :Promise<AxiosResponse | any> 
   try {
     const headers = getToken();
     return await axios.get(
-        `${BASE_URL}/recipe/?recipeID=${recipeID}`, {
+        `${BASE_URL}/recipe?recipeID=${recipeID}`, {
           headers: headers,
         }
     );
@@ -64,7 +63,7 @@ export const deleteRecipe = async (recipeID: string) : Promise<void> => {
   try {
     const headers = getToken();
     const response =  await axios.delete(
-        `${BASE_URL}/delete/?recipeID=${recipeID}`, {
+        `${BASE_URL}/delete?recipeID=${recipeID}`, {
           headers: headers,
         }
     );
@@ -94,11 +93,10 @@ export const updateRecipe = async (recipe: any, image: File | null) : Promise<vo
   try {
     const Authorization = getToken().Authorization;
     const formData = new FormData();
-    formData.append("image", image!); // Add the image file
+    if (image) formData.append("image", image); // Add the image file
     formData.append("data", JSON.stringify(recipe));
-    const response = await axios.put(`${BASE_URL}/update/?recipeID=${recipe._id}`, formData, {
+    const response = await axios.put(`${BASE_URL}/update?recipeID=${recipe._id}`, formData, {
       headers: {
-        'Content-Type': 'multipart/form-data',
         Authorization
       },
     });
