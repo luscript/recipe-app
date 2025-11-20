@@ -42,10 +42,10 @@ const DropdownComponent = ({logout, userEmail}: {logout: () => void, userEmail: 
                 <img src={home} alt="" width={'30px'}/>
                 <Link to="/">Home</Link>
             </li>
-          <li>
+          {/* <li>
             <img src={user} alt="" />
             <Link to="/profile">My profile</Link>
-          </li>
+          </li> */}
           <li>
             <img src={fork} alt="" />
             <Link to="/recipes">My recipes</Link>
