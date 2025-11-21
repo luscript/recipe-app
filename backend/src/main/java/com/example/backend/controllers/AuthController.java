@@ -6,6 +6,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,9 +18,11 @@ import java.util.UUID;
 public class AuthController {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public AuthController(UserRepository userRepository) {
+    public AuthController(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @PostMapping("/register")
@@ -32,7 +35,8 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
         String token = UUID.randomUUID().toString();
-        User u = new User(email, password, token);
+        String hash = passwordEncoder.encode(password);
+        User u = new User(email, hash, token);
         userRepository.save(u);
         Map<String, String> res = new HashMap<>();
         res.put("token", token);
@@ -46,7 +50,7 @@ public class AuthController {
         String password = body.get("password");
         if (email == null || password == null) return ResponseEntity.badRequest().build();
         Optional<User> u = userRepository.findByEmail(email);
-        if (u.isPresent() && u.get().getPassword().equals(password)) {
+        if (u.isPresent() && passwordEncoder.matches(password, u.get().getPassword())) {
             String token = UUID.randomUUID().toString();
             User user = u.get();
             user.setToken(token);
