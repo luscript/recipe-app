@@ -19,9 +19,18 @@ const Recipe = ({ recipe, handleEdit, handleDelete }: RecipeParams) => {
   const cookingTime = recipe.cookingTime || dataJson?.cookingTime || { hours: 0, minutes: 0 };
   const servings = recipe.servings || dataJson?.servings || "";
 
+  const navigate = useNavigate();
+
+  const goBack = () => {
+    navigate('/recipes');
+  };
+
   return (
     <div className={`flex flex-col items-center mt-10"`}>
-      <h1 className={`mb-1 foodName`}>{displayName}</h1>
+      <div className="title-row w-full flex items-center justify-center gap-4">
+        <button className="back-btn" onClick={goBack} aria-label="Back to recipes">← Back</button>
+        <h1 className={`mb-1 foodName`}>{displayName}</h1>
+      </div>
       <div className="flex flex-col w-full">
         <div className="image-wrapper w-full">
           <img
