@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Form from '../components/Form'
 import {useLocation, useNavigate} from 'react-router-dom';
 import Swal from 'sweetalert2';
@@ -6,6 +6,11 @@ import { login } from '../services/userService.tsx';
 import {useUserContext} from "../contexts/UserContext.tsx";
 
 export const Login = () => {
+
+
+  useEffect(() => {
+    
+  }, []);
 
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');

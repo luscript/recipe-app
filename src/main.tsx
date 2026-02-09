@@ -8,9 +8,9 @@ import  { UserContextProvider } from "./contexts/UserContext.tsx";
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <BrowserRouter>
-        <UserContextProvider>
-            <App />
-        </UserContextProvider>
+      <UserContextProvider>
+        <App />
+      </UserContextProvider>
     </BrowserRouter>
   </React.StrictMode>,
 )

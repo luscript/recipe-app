@@ -90,6 +90,7 @@ export default function RecipeForm({ recipeA }: { recipeA?: RecipeFormType }) {
           userOwner: ""
         }
         setRecipe({...clearedRecipe});
+        navigate("/recipes");
       });
     }
       

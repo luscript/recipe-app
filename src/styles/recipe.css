@@ -72,6 +72,8 @@ backdrop-filter: blur(2.4px);
 }
 
 .boxTitle {
-    color: rgba(0, 0, 0, 0.866);
+    /* Make headings lighter and more legible against the frosted background */
+    color: rgba(255, 255, 255, 0.95);
+    text-shadow: 0 5px 0 rgba(0,0,0,0.5);
     margin-bottom: 0.75rem;
 }

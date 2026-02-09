@@ -10,8 +10,7 @@ import { RecipeParams } from "../domain/RecipeParams";
 const Recipe = ({ recipe, handleEdit, handleDelete }: RecipeParams) => {
   
 
-  // Some recipes stored their fields inside `dataJson` (stringified JSON).
-  // Parse it and use its values as fallbacks when top-level fields are missing.
+
   const dataJson = (recipe as any).dataJson ? JSON.parse((recipe as any).dataJson) : null;
   const displayName = recipe.name || dataJson?.name || recipe.title || "";
   const ingredients = recipe.ingredients || dataJson?.ingredients || [];
@@ -28,7 +27,7 @@ const Recipe = ({ recipe, handleEdit, handleDelete }: RecipeParams) => {
   return (
     <div className={`flex flex-col items-center mt-10"`}>
       <div className="title-row w-full flex items-center justify-center gap-4">
-        <button className="back-btn" onClick={goBack} aria-label="Back to recipes">← Back</button>
+        <button className="back-btn absolute left-4" onClick={goBack} aria-label="Back to recipes">← Back</button>
         <h1 className={`mb-1 foodName`}>{displayName}</h1>
       </div>
       <div className="flex flex-col w-full">

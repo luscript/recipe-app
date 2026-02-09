@@ -12,6 +12,8 @@ import Register from "./pages/register";
 import RecipeDetails from "./pages/recipeDetails";
 import EditRecipe from "./pages/editRecipe";
 import NotFound from "./pages/notFound.tsx";
+import Recover from "./pages/recover.tsx";
+import Profile from "./pages/Profile.tsx";
 
 function App() {
   const location = useLocation();
@@ -29,7 +31,9 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/recipe/:id" element={<RecipeDetails/>}/>
         <Route path="/recipe/edit/:id" element={<EditRecipe/>}/>
+        <Route path="/recover" element={<Recover/>}/>
         <Route path="*" element={<NotFound /> } />
+        {/* <Route path="/profile" element={<Profile/>}/> */}
       </Routes>
     </div>
   );

@@ -50,15 +50,32 @@ public class AuthController {
         String password = body.get("password");
         if (email == null || password == null) return ResponseEntity.badRequest().build();
         Optional<User> u = userRepository.findByEmail(email);
-        if (u.isPresent() && passwordEncoder.matches(password, u.get().getPassword())) {
-            String token = UUID.randomUUID().toString();
+        if (u.isPresent()) {
             User user = u.get();
-            user.setToken(token);
-            userRepository.save(user);
-            Map<String, String> res = new HashMap<>();
-            res.put("token", token);
-            return ResponseEntity.ok(res);
+            String stored = user.getPassword();
+            boolean matches = false;
+            if (stored != null && (stored.startsWith("$2a$") || stored.startsWith("$2b$") || stored.startsWith("$2y$"))) {
+                matches = passwordEncoder.matches(password, stored);
+            } else {
+                // legacy plain-text password; compare directly and upgrade to BCrypt when it matches
+                matches = stored != null && stored.equals(password);
+                if (matches) {
+                    String rehash = passwordEncoder.encode(password);
+                    user.setPassword(rehash);
+                    userRepository.save(user);
+                }
+            }
+
+            if (matches) {
+                String token = UUID.randomUUID().toString();
+                user.setToken(token);
+                userRepository.save(user);
+                Map<String, String> res = new HashMap<>();
+                res.put("token", token);
+                return ResponseEntity.ok(res);
+            }
         }
+        
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
